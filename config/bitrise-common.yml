@@ -1,0 +1,38 @@
+format_version: 13
+step_bundles:
+  project_setup:
+    steps:
+    - git-clone@8: {}
+    - share-pipeline-variable@1:
+        title: Configure next pipeline stage
+        inputs:
+        - variables: |-
+            ENV_TYPE
+  run_test:
+    steps:
+    - git-clone@8: {}
+    - generic-file-storage: {}
+    - script@1:
+        inputs:
+        - script_file_path:
+        - content: |-
+            #!/usr/bin/env bash
+            set -ex
+            set -o pipefail
+
+            # Ensure correct versions of build tools
+            # described in .tool-versions
+            asdf install
+    - script@1:
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -ex
+            set -o pipefail
+
+            # Build your project here
+            echo "Environment: $ENV_TYPE"
+            # Use the config file with corresponding ENV_TYPE
+            # downloaded from previous Generic File Storage step
+            echo "Running test plan: $TEST_PLAN"
+            echo "Test completed"
