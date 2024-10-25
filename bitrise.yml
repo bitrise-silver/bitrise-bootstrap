@@ -1,0 +1,62 @@
+---
+format_version: '13'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: android
+include:
+  - path: config/bitrise-common.yml
+pipelines:
+  env_dev:
+    stages:
+    - setup-dev: {}
+    - test: {}
+  env_prod:
+    stages:
+    - setup-prod: {}
+    - test: {}
+stages:
+  setup-dev:
+    workflows:
+    - workflow-setup-dev: {}
+  setup-prod:
+    workflows:
+    - workflow-setup-prod: {}
+  test:
+    workflows:
+    - test-android: {}
+    - test-ios: {}
+workflows:
+  workflow-setup-dev:
+    envs:
+      - ENV_TYPE: DEV
+    steps:
+    - bundle::project_setup: {}
+  workflow-setup-prod:
+    envs:
+      - ENV_TYPE: PROD
+    steps:
+    - bundle::project_setup: {}
+  test-android:
+    envs:
+      - TEST_PLAN: ANDROID
+    steps:
+    - bundle::run_test: {}
+    meta:
+      bitrise.io:
+        stack: linux-docker-android-22.04
+        machine_type_id: elite-xl
+  test-ios:
+    envs:
+      - TEST_PLAN: IOS
+    steps:
+    - bundle::run_test: {}
+    meta:
+      bitrise.io:
+        stack: osx-xcode-16.0.x
+        machine_type_id: g2.mac.large
+trigger_map:
+- pull_request_source_branch: '*'
+  pipeline: env_dev
+meta:
+  bitrise.io:
+    stack: linux-docker-android-22.04
+    machine_type_id: standard

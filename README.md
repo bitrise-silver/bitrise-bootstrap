@@ -1,0 +1,4 @@
+This project demonstrates best practices for setting up projects on Bitrise. The project contains two pipelines for DEV and PROD environments with parallel iOS and Android testing. Each build pulls credential files in secured [Generic File Storage](https://devcenter.bitrise.io/en/builds/managing-build-files/using-files-in-your-builds.html) then builds the corresponding flavor.
+
+
+The setup requires bitrise.yml hosted in git repo and Enterprise plan due to [modular bitrise.yml](https://devcenter.bitrise.io/en/builds/configuration-yaml/modular-yaml-configuration.html), it also uses [step bundle](https://devcenter.bitrise.io/en/steps-and-workflows/introduction-to-steps/step-bundles.html#step-bundle-outputs) to reduce duplications in bitrise.yml. Finally [asdf](https://bitrise.io/blog/post/a-deep-dive-into-asdf-and-version-managers) is or managing expected build tools.
