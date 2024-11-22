@@ -4,6 +4,9 @@ default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: android
 include:
   - path: config/bitrise-common.yml
+  - path: config/sub.yml
+    branch: reference-sub-yml
+    repository: bitrise-bootstrap
 pipelines:
   env_dev:
     stages:
