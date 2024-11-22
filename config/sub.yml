@@ -1,0 +1,15 @@
+format_version: 13
+step_bundles:
+  demo_bundle_on_a_branch:
+    steps:
+    - script@1:
+        inputs:
+        - script_file_path:
+        - content: |-
+            #!/usr/bin/env bash
+            set -ex
+            set -o pipefail
+
+            # Ensure correct versions of build tools
+            # described in .tool-versions
+            echo "from a branch"
