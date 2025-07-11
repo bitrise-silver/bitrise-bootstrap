@@ -34,5 +34,6 @@ step_bundles:
             echo "Environment: $ENV_TYPE"
             # Use the config file with corresponding ENV_TYPE
             # downloaded from previous Generic File Storage step
+            # this is just a placeholder
             echo "Running test plan: $TEST_PLAN"
             echo "Test completed"
